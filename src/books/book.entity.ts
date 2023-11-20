@@ -30,7 +30,7 @@ export class BookEntity {
   @Column({ name: 'language', type: 'varchar', length: 50, comment: 'Language of the book' })
   language: string;
 
-  @Column({ name: 'pages', type: 'int', comment: 'Number of pages in the book' })
+  @Column({ name: 'pages', type: 'integer', comment: 'Number of pages in the book' })
   pages: number;
 
   @Column({ name: 'description', type: 'text', comment: 'Description of the book' })
