@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Put, Param, Delete, Body, ParseIntPipe } from "@nestjs/common";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { Controller, Get, Post, Put, Param, Delete, Body, ParseIntPipe, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { ReaderService } from "./reader.service";
 import { CreateReaderDTO } from "./dto/create-reader.dto";
 import { UpdateReaderDTO } from "./dto/update-reader.dto";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
+@ApiBearerAuth()
 @ApiTags('Reader Module')
+@UseGuards(JwtAuthGuard) //seguridad en las rutas XD
 @Controller('reader')
 export class ReaderController {
 

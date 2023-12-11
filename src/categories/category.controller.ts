@@ -8,14 +8,17 @@ import {
     //Patch,
     Post,
     Put,
+    UseGuards,
   } from '@nestjs/common';
-  import { ApiOperation, ApiTags } from '@nestjs/swagger';
+  import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
   import { CreateCategoryDTO } from './dto/create-category.dto';
   import { UpdateCategoryDTO } from './dto/update-category.dto';
   import { CategoryService } from './category.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
   
-  
+  @ApiBearerAuth()
   @ApiTags('categories')
+  @UseGuards(JwtAuthGuard) //seguridad en las rutas XD
   @Controller('categories')
   export class CategoryController {
     constructor(private readonly categoryService: CategoryService) {}

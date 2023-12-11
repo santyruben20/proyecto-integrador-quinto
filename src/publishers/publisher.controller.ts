@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Put, Param, Delete, Body, ParseIntPipe } from "@nestjs/common";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { Controller, Get, Post, Put, Param, Delete, Body, ParseIntPipe, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { PublisherService } from "./publisher.service";
 import { CreatePublisherDTO } from "./dto/create-publisher.dto";
 import { UpdatePublisherDTO } from "./dto/update-publisher.dto";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
+@ApiBearerAuth()
 @ApiTags('Publisher Module')
+@UseGuards(JwtAuthGuard) //seguridad en las rutas XD
 @Controller('publisher')
 export class PublisherController {
 

@@ -18,6 +18,7 @@ const swagger_1 = require("@nestjs/swagger");
 const author_service_1 = require("./author.service");
 const create_author_dto_1 = require("./dto/create-author.dto");
 const update_author_dto_1 = require("./dto/update-author.dto");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let AuthorController = class AuthorController {
     constructor(authorService) {
         this.authorService = authorService;
@@ -85,7 +86,9 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthorController.prototype, "delete", null);
 exports.AuthorController = AuthorController = __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiTags)('Author Module'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Controller)('author'),
     __metadata("design:paramtypes", [author_service_1.AuthorService])
 ], AuthorController);

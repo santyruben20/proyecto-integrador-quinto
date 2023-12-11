@@ -23,13 +23,27 @@ const category_entity_1 = require("./categories/category.entity");
 const publisher_entity_1 = require("./publishers/publisher.entity");
 const reader_entity_1 = require("./readers/reader.entity");
 const rental_entity_1 = require("./rentals/rental.entity");
+const user_module_1 = require("./users/user.module");
+const user_entity_1 = require("./users/user.entity");
+const auth_module_1 = require("./auth/auth.module");
+const mailer_1 = require("@nestjs-modules/mailer");
+const handlebars_adapter_1 = require("@nestjs-modules/mailer/dist/adapters/handlebars.adapter");
+const dotenv = require("dotenv");
+dotenv.config();
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [books_module_1.BooksModule, rentals_module_1.RentalsModule, authors_module_1.AuthorsModule, categories_module_1.CategoriesModule, publishers_module_1.PublishersModule,
+        imports: [
+            books_module_1.BooksModule,
+            rentals_module_1.RentalsModule,
+            authors_module_1.AuthorsModule,
+            categories_module_1.CategoriesModule,
+            publishers_module_1.PublishersModule,
             readers_module_1.ReadersModule,
+            user_module_1.UsersModule,
+            auth_module_1.AuthModule,
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
                 host: 'localhost',
@@ -43,10 +57,35 @@ exports.AppModule = AppModule = __decorate([
                     category_entity_1.CategoryEntity,
                     publisher_entity_1.PublisherEntity,
                     reader_entity_1.ReaderEntity,
-                    rental_entity_1.RentalEntity
+                    rental_entity_1.RentalEntity,
+                    user_entity_1.UserEntity,
                 ],
                 synchronize: true,
-            }),],
+            }),
+            mailer_1.MailerModule.forRootAsync({
+                useFactory: () => ({
+                    transport: {
+                        host: 'smtp.sendgrid.net',
+                        port: 587,
+                        secure: false,
+                        auth: {
+                            user: 'apikey',
+                            pass: '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',
+                        },
+                    },
+                    defaults: {
+                        from: 'srl.castillo@yavirac.edu.ec',
+                    },
+                    template: {
+                        dir: process.cwd() + '/templates/',
+                        adapter: new handlebars_adapter_1.HandlebarsAdapter(),
+                        options: {
+                            strict: true,
+                        },
+                    },
+                }),
+            }),
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

@@ -1,14 +1,16 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Put, Query } from "@nestjs/common";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Put, Query, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { RentalService } from './rental.service';
 import { UpdateRentalDTO } from './dto/update-rental.dto';
 import { CreateRentalDTO } from './dto/create-rental.dto';
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 
 
 
-
+@ApiBearerAuth()
 @ApiTags('rentals')
+@UseGuards(JwtAuthGuard) //seguridad en las rutas XD
 @Controller('rentals')
 export class RentalController{
       constructor(private readonly rentalService:RentalService){

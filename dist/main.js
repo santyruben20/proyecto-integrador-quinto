@@ -4,10 +4,13 @@ const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const validation_pipe_1 = require("@nestjs/common/pipes/validation.pipe");
 const swagger_1 = require("@nestjs/swagger");
+const dotenv = require("dotenv");
 async function bootstrap() {
+    dotenv.config();
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.useGlobalPipes(new validation_pipe_1.ValidationPipe());
     const config = new swagger_1.DocumentBuilder()
+        .addBearerAuth()
         .setTitle('Library yavirac')
         .setVersion('1.0')
         .addTag('library')

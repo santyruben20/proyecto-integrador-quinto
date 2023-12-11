@@ -1,14 +1,16 @@
 import { BookService } from './book.service';
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Put, Query } from "@nestjs/common";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Put, Query, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { CreateBookDTO } from "./dto/create-book.dto";
 import { UpdateBookDTO } from './dto/update-book.dto';
 import { BookDTO } from './dto/book.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 
 
-
+@ApiBearerAuth()
 @ApiTags('books')
+@UseGuards(JwtAuthGuard) //seguridad en las rutas XD
 @Controller('books')
 export class BookController{
       constructor(private readonly bookService:BookService){

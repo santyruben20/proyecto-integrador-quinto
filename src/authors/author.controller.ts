@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Put, Param, Delete, Body, ParseIntPipe } from "@nestjs/common";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { Controller, Get, Post, Put, Param, Delete, Body, ParseIntPipe, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AuthorService } from "./author.service";
 import { CreateAuthorDTO } from "./dto/create-author.dto";
 import { UpdateAuthorDTO } from "./dto/update-author.dto";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
+@ApiBearerAuth()
 @ApiTags('Author Module')
+@UseGuards(JwtAuthGuard) //seguridad en las rutas XD
 @Controller('author')
 export class AuthorController {
 
