@@ -60,7 +60,7 @@ dotenv.config();
           secure: false,
           auth: {
             user: 'apikey',
-            pass: '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',
+            pass: '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',
           },
         },
         defaults: {

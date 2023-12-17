@@ -90,7 +90,9 @@ export class UserService {
     async sendResetEmail(user: UserEntity): Promise<void> {
         const resetToken = await this.generateResetToken(user);
 
-        const resetLink = `https://tu-app.com/reset-password?token=${resetToken}`;
+        // En tu función sendResetEmail
+        const resetLink = `http://localhost:4200/reset-password?token=${resetToken}`;
+
 
         await this.mailerService.sendMail({
             to: user.email,

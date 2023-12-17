@@ -78,7 +78,7 @@ let UserService = class UserService {
     }
     async sendResetEmail(user) {
         const resetToken = await this.generateResetToken(user);
-        const resetLink = `https://tu-app.com/reset-password?token=${resetToken}`;
+        const resetLink = `http://localhost:4200/reset-password?token=${resetToken}`;
         await this.mailerService.sendMail({
             to: user.email,
             subject: 'Solicitud de Restablecimiento de Contraseña',

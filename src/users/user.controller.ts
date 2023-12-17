@@ -7,7 +7,7 @@ import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 @ApiBearerAuth()
 @ApiTags('users')
-@UseGuards(JwtAuthGuard) //seguridad en las rutas XD
+
 @Controller('users')
 export class UserController{
       constructor(private readonly userService:UserService){
